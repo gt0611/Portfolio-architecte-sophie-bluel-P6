@@ -9,13 +9,13 @@ const gallery = document.querySelector(".gallery");
 // Affichage des Works
 async function showWorks(arrayWorks) {
   gallery.innerHTML = null;
-  arrayWorks.forEach((works) => {
+  arrayWorks.forEach((work) => {
     const figureElement = document.createElement("figure");
     const imgElement = document.createElement("img");
-    imgElement.src = works.imageUrl;
-    imgElement.alt = works.title;
+    imgElement.src = work.imageUrl;
+    imgElement.alt = work.title;
     const figcaptionElement = document.createElement("figcaption");
-    figcaptionElement.textContent = works.title;
+    figcaptionElement.textContent = work.title;
     // Ajout au parents
     gallery.append(figureElement);
     figureElement.append(imgElement, figcaptionElement);
@@ -37,7 +37,17 @@ categories.unshift({ id: 0, name: "Tous" });
 async function showCategories(arrayCategories) {
   arrayCategories.forEach((categories) => {
     const btnElement = document.createElement("button");
+    if (categories.id == 0) {
+      btnElement.classList.add("categories_selected");
+    }
     btnElement.addEventListener("click", () => {
+      const oldBtn = document.querySelector(".categories_selected");
+      oldBtn.classList.remove("categories_selected");
+      btnElement.classList.add("categories_selected");
+
+      if (categories.id == 0) {
+        return showWorks(works);
+      }
       const filterWorks = works.filter((work) => {
         return work.categoryId === categories.id;
       });
