@@ -1,3 +1,19 @@
+const token = window.localStorage.getItem("token");
+if (token) {
+  const loginLink = document.querySelector("#login");
+  loginLink.innerText = "logout";
+  loginLink.href = "#";
+  loginLink.addEventListener("click", () => {
+    window.localStorage.removeItem("token");
+    window.location.reload();
+  });
+} else {
+  const categories = await getCategories();
+  // ajout de tous dans l'objet catégories
+  categories.unshift({ id: 0, name: "Tous" });
+  const btn = document.querySelector(".categories");
+  showCategories(categories, btn);
+}
 // recupération des works dans l'API
 async function getWorks() {
   const response = await fetch("http://localhost:5678/api/works");
@@ -23,18 +39,14 @@ async function showWorks(arrayWorks) {
 }
 showWorks(works);
 
-const btn = document.querySelector(".categories");
-
 // Récupération des catégories sur l'Api
 async function getCategories() {
   const response = await fetch("http://localhost:5678/api/categories");
   return await response.json();
 }
-const categories = await getCategories();
-// ajout de tous dans l'objet catégories
-categories.unshift({ id: 0, name: "Tous" });
+
 // Affichage des Catégories
-async function showCategories(arrayCategories) {
+async function showCategories(arrayCategories, btn) {
   arrayCategories.forEach((categories) => {
     const btnElement = document.createElement("button");
     if (categories.id == 0) {
@@ -58,4 +70,3 @@ async function showCategories(arrayCategories) {
     btn.append(btnElement);
   });
 }
-showCategories(categories);
