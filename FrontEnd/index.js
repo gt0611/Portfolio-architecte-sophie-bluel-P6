@@ -70,3 +70,16 @@ async function showCategories(arrayCategories, btn) {
     btn.append(btnElement);
   });
 }
+
+const dialog = document.querySelector("#dialog");
+const showDialog = document.querySelector("#showdialog");
+const closeDialog = document.querySelector("#closedialog");
+
+// L'icone « Mode edition » ouvre la modale <dialog>
+showDialog.addEventListener("click", () => {
+  dialog.showModal();
+});
+// la croix ferme la modale <dialog>
+closeDialog.addEventListener("click", (event) => {
+  dialog.close();
+});
