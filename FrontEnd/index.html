@@ -19,15 +19,44 @@
 
 <body>
 	<div class="edit">
-		<i class="fa-regular fa-pen-to-square" id="showdialog"></i>
+		<i class="fa-regular fa-pen-to-square"></i>
 		<p autofocus>Mode édition</p>
 	</div>
+
 	<dialog id="dialog">
-		<i class="fa-solid fa-xmark" id="closedialog"></i>
-		<p>Gallery photo</p>
-		<form method="dialog">
-			<button type="button">Ajouter une photo</button>
-		</form>
+		<div class="container-modal">
+			<i class="fa-solid fa-xmark" id="closedialog"></i>
+			<h3>Gallery photo</h3>
+			<div id="gallery-modal">
+			</div>
+			<hr>
+			<button id="show-modal-add">Ajouter une photo</button>
+		</div>
+	</dialog>
+
+	<dialog id="modal-add">
+		<div class="modal-add-container">
+			<i class="fa-solid fa-arrow-left" id="goback"></i>
+			<i class="fa-solid fa-xmark" id="close-modal"></i>
+			<h3>Ajout photo</h3>
+
+			<form class="modal-form">
+				<div class="modal-file">
+					<i class="fa-regular fa-image"></i>
+					<label for="images"> + Ajouter photo</label>
+					<input type="file" name="images" id="images">
+					<p>jpg, png : 4mo max</p>
+				</div>
+				<label for="title">Titre</label>
+				<input type="text" name="title" id="title">
+				<label for="category">Catégories</label>
+				<select name="category" id="category">
+				</select>
+				<hr>
+				<input type="submit" disabled id="submit-form" value="Valider">
+			</form>
+
+		</div>
 	</dialog>
 
 	<header>
@@ -58,54 +87,14 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
+			<div class="modif">
+				<h2>Mes Projets</h2>
+				<i class="fa-regular fa-pen-to-square" id="showdialog"></i>
+				<p>modifier</p>
+			</div>
 			<div class="categories">
 			</div>
 			<div class="gallery">
-				<!-- <figure>
-					<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
-					<figcaption>Abajour Tahina</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
-					<figcaption>Appartement Paris V</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">
-					<figcaption>Restaurant Sushisen - Londres</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">
-					<figcaption>Villa “La Balisiere” - Port Louis</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">
-					<figcaption>Structures Thermopolis</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">
-					<figcaption>Appartement Paris X</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">
-					<figcaption>Pavillon “Le coteau” - Cassis</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">
-					<figcaption>Villa Ferneze - Isola d’Elba</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">
-					<figcaption>Appartement Paris XVIII</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">
-					<figcaption>Bar “Lullaby” - Paris</figcaption>
-				</figure>
-				<figure>
-					<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
-					<figcaption>Hotel First Arte - New Delhi</figcaption>
-				</figure> -->
 			</div>
 		</section>
 		<section id="contact">
