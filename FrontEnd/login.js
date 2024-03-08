@@ -7,12 +7,6 @@ form.addEventListener("submit", async (event) => {
   //  verifier l'email
   const errorLogin = document.querySelector(".error_login");
   pElement = document.createElement("p");
-  // if (email.value == "sophie.bluel@test.tld" && password.value == "S0phie") {
-  //   window.location.href = "index.html";
-  // } else {
-  //   pElement.textContent = "Erreur dans l’identifiant ou le mot de passe";
-  //   errorLogin.append(pElement);
-  // }
   const response = await fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     headers: {
