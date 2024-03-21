@@ -28,7 +28,7 @@ if (token) {
   closeDialog.addEventListener("click", (event) => {
     dialog.close();
   });
-
+  // ferme la modale <dialog> au click à l'exterieur
   dialog.addEventListener("click", (e) => {
     if (e.target == dialog) {
       dialog.close();
@@ -43,54 +43,87 @@ if (token) {
   const titleInput = document.querySelector("#title");
   const categoryInput = document.querySelector("#category");
   const submitButton = document.querySelector("#submit-form");
-  const selectForm = document.querySelector("select");
-  const optionObjet = document.createElement("option");
-  optionObjet.value = "1";
-  optionObjet.innerHTML = "Objet";
-  const optionAppartement = document.createElement("option");
-  optionAppartement.value = "2";
-  optionAppartement.innerHTML = "Appartement";
-  const optionHotelRestaurant = document.createElement("option");
-  optionHotelRestaurant.value = "3";
-  optionHotelRestaurant.innerHTML = "Hôtel et restaurant";
-  selectForm.append(optionObjet, optionAppartement, optionHotelRestaurant);
+  // creation des option select
+  async function displayCatégoriesModal() {
+    const selectForm = document.querySelector("select");
+    const categorys = await getCategories();
+    categorys.forEach((category) => {
+      const optionObjet = document.createElement("option");
+      optionObjet.value = category.id;
+      optionObjet.innerHTML = category.name;
+      selectForm.append(optionObjet);
+    });
+  }
+  displayCatégoriesModal();
 
+  // visualisation de la modale
   showModalAdd.addEventListener("click", () => {
     modal.showModal();
     dialog.close();
   });
-
+  // ferme la modale
   closeModal.addEventListener("click", () => {
     modal.close();
   });
-
+  // retour a la modale précèdente
   goBack.addEventListener("click", () => {
     dialog.showModal();
     modal.close();
   });
-
+  // ferme la modale au click a l'exterieur de la modale
   modal.addEventListener("click", (e) => {
     if (e.target == modal) {
       modal.close();
     }
   });
 
-  fileInput.addEventListener("change", onInputChange);
+  //Écoute le changement des input du formulaire
+  fileInput.addEventListener("change", (e) => {
+    if (
+      (fileInput.files[0].type === "image/png" ||
+        fileInput.files[0].type === "image/jpeg") &&
+      fileInput.files[0].size <= 4000
+    ) {
+      //ici afficher l'image
+      onInputChange(e);
+    } else {
+      fileInput.value = null;
+      fileInput.files = [];
+    }
+  });
   titleInput.addEventListener("change", onInputChange);
   categoryInput.addEventListener("change", onInputChange);
-
+  //Change l'apparence du bouton du form
   function onInputChange(e) {
     console.log(fileInput.value, titleInput.value, categoryInput.value);
-    if (fileInput.value && titleInput.value && categoryInput.value) {
+    if (checkValidity()) {
       submitButton.disabled = false;
     } else {
       submitButton.disabled = true;
     }
   }
 
-  form.addEventListener("submit", (e) => {
+  function checkValidity() {
+    return fileInput.value && titleInput.value && categoryInput.value;
+  }
+
+  // Écoute l'envoi du form au submit
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     console.log("submit");
+
+    const formData = new FormData();
+    formData.append("title", titleInput.value);
+    formData.append("category", Number(categoryInput.value));
+    formData.append("image", fileInput.files[0]);
+
+    await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + window.localStorage.getItem("token"),
+      },
+      body: formData,
+    });
   });
 } else {
   // ajout de tous dans l'objet catégories
