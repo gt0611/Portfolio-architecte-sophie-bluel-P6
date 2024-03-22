@@ -140,10 +140,21 @@ header {
   margin: 50px 0;
 }
 
+nav a {
+  text-decoration: none;
+  color: black;
+}
+
+dialog {
+  border-radius: 10px;
+  border: none;
+}
+
 dialog h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 26px;
 }
 
 .edit {
@@ -163,9 +174,11 @@ dialog h3 {
   color: white;
   background-color: #1d6154;
   margin: 2em auto;
-  width: 180px;
   text-align: center;
   border-radius: 60px;
+  width: 180px;
+  height: 36px;
+  border: none;
 }
 
 .modal-add-container {
@@ -259,6 +272,10 @@ dialog h3 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.modal-form img {
+  display: none;
 }
 
 .modal-form input {
@@ -487,6 +504,11 @@ li:hover {
   flex-direction: column;
 }
 
+.login h2 {
+  color: #1d6154;
+  text-align: center;
+}
+
 .login input {
   height: 50px;
   font-size: 1.2em;
@@ -498,6 +520,7 @@ li:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: black;
 }
 
 .error_login {
