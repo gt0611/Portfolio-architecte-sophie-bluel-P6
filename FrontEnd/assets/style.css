@@ -181,6 +181,16 @@ dialog h3 {
   border: none;
 }
 
+.preview-image {
+  height: 100%;
+}
+
+.file-erreur {
+  text-align: center;
+  color: red;
+  display: none;
+}
+
 .modal-add-container {
   display: flex;
   flex-direction: column;
