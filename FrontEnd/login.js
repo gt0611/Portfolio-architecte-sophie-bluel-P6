@@ -1,4 +1,6 @@
 const form = document.querySelector("form");
+const loginLink = document.querySelector("#login");
+loginLink.style.fontWeight = "900";
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
