@@ -39,11 +39,16 @@ if (token) {
   const closeModal = document.querySelector("#close-modal");
   const form = document.querySelector(".modal-form");
   const goBack = document.querySelector("#goback");
-  const fileInput = document.querySelector("#images");
   const titleInput = document.querySelector("#title");
+  const labelInput = document.querySelector(".modal-file label");
+  const icon = document.querySelector(".modal-file i");
   const categoryInput = document.querySelector("#category");
   const submitButton = document.querySelector("#submit-form");
-  // creation des option select
+  const fileInput = document.querySelector("#image");
+  const pFile = document.querySelector(".modal-file p");
+  const prewiewImg = document.querySelector(".modal-file img");
+
+  // creation des option select et affichages des works par categorie
   async function displayCatégoriesModal() {
     const selectForm = document.querySelector("select");
     const categorys = await getCategories();
@@ -79,16 +84,28 @@ if (token) {
 
   //Écoute le changement des input du formulaire
   fileInput.addEventListener("change", (e) => {
+    const file = fileInput.files[0];
+    const fileErreur = document.querySelector(".file-erreur");
     if (
       (fileInput.files[0].type === "image/png" ||
         fileInput.files[0].type === "image/jpeg") &&
-      fileInput.files[0].size <= 4000
+      fileInput.files[0].size <= 400000
     ) {
       //ici afficher l'image
+      fileErreur.style.display = "none";
       onInputChange(e);
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        prewiewImg.src = e.target.result;
+        prewiewImg.style.display = "flex";
+        labelInput.style.display = "none";
+        icon.style.display = "none";
+        pFile.style.display = "none";
+      };
+      reader.readAsDataURL(file);
     } else {
       fileInput.value = null;
-      fileInput.files = [];
+      fileErreur.style.display = "block";
     }
   });
   titleInput.addEventListener("change", onInputChange);
@@ -124,6 +141,7 @@ if (token) {
       },
       body: formData,
     });
+    return window.location.reload();
   });
 } else {
   // ajout de tous dans l'objet catégories
@@ -148,7 +166,7 @@ async function deleteWork(workId) {
       Authorization: "Bearer " + window.localStorage.getItem("token"),
     },
   });
-  return;
+  return window.location.reload();
 }
 
 // Affichage des Works
