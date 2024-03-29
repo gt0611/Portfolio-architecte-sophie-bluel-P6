@@ -141,7 +141,10 @@ if (token) {
       },
       body: formData,
     });
-    return window.location.reload();
+    const works = await getWorks();
+    showWorks(works);
+    showWorksModal(works);
+    return modal.close();
   });
 } else {
   // ajout de tous dans l'objet catégories
@@ -166,9 +169,11 @@ async function deleteWork(workId) {
       Authorization: "Bearer " + window.localStorage.getItem("token"),
     },
   });
-  return window.location.reload();
+  const works = await getWorks();
+  showWorksModal(works);
+  showWorks(works);
+  return dialog.close();
 }
-
 // Affichage des Works
 function showWorks(arrayWorks) {
   gallery.innerHTML = "";
