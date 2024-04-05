@@ -25,7 +25,6 @@ form.addEventListener("submit", async (event) => {
     window.localStorage.setItem("token", user.token);
     window.location.replace("/");
   } else {
-    pElement.textContent = "Erreur dans l’identifiant ou le mot de passe";
-    errorLogin.append(pElement);
+    errorLogin.innerHTML = "Erreur dans l’identifiant ou le mot de passe";
   }
 });
